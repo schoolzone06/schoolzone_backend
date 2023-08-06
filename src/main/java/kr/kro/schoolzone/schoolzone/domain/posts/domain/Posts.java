@@ -14,11 +14,12 @@ public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "posts_id")
+    private Long postsId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User userId;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -31,8 +32,8 @@ public class Posts extends BaseTimeEntity {
     private String contents;
 
     @Builder
-    public Posts(User user, Category category, String title, String contents) {
-        this.user = user;
+    public Posts(User userId, Category category, String title, String contents) {
+        this.userId = userId;
         this.category = category;
         this.title = title;
         this.contents = contents;

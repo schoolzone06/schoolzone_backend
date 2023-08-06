@@ -12,21 +12,22 @@ public class School {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "school_id")
+    private Long schoolId;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = false, name = "school_name")
+    private String schoolName;
 
-    @Column(nullable = false, unique = true)
-    private String domain;
+    @Column(nullable = false, unique = true, name = "school_domain")
+    private String schoolDomain;
 
-    @Column(nullable = false)
-    private String location;
+    @Column(nullable = false, name = "school_location")
+    private String schoolLocation;
 
     @Builder
-    public School(String name, String domain, String location) {
-        this.name = name;
-        this.domain = domain;
-        this.location = location;
+    public School(String schoolName, String schoolDomain, String schoolLocation) {
+        this.schoolName = schoolName;
+        this.schoolDomain = schoolDomain;
+        this.schoolLocation = schoolLocation;
     }
 }

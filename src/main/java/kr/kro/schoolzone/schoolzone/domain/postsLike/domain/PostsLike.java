@@ -14,19 +14,20 @@ public class PostsLike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "posts_like_id")
+    private Long postsLikeId;
 
     @OneToOne
     @JoinColumn(name = "posts_id")
-    private Posts posts;
+    private Posts postsId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User userId;
 
     @Builder
-    public PostsLike(Posts posts, User user) {
-        this.posts = posts;
-        this.user = user;
+    public PostsLike(Posts postsId, User userId) {
+        this.postsId = postsId;
+        this.userId = userId;
     }
 }

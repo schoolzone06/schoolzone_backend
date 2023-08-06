@@ -14,19 +14,20 @@ public class CommentsLike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "comments_like_id")
+    private Long commentsLikeId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User userId;
 
     @ManyToOne
     @JoinColumn(name = "comments_id")
-    private Comments comments;
+    private Comments commentsId;
 
     @Builder
-    public CommentsLike(User user, Comments comments) {
-        this.user = user;
-        this.comments = comments;
+    public CommentsLike(User userId, Comments commentsId) {
+        this.userId = userId;
+        this.commentsId = commentsId;
     }
 }

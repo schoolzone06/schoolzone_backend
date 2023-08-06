@@ -13,11 +13,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @OneToOne
     @JoinColumn(name = "school_id")
-    private School school;
+    private School schoolId;
 
     @Column(nullable = false)
     private String region;
@@ -33,8 +34,8 @@ public class User {
     private Gender gender;
 
     @Builder
-    public User(School school, String region, String email, String nickname, Gender gender) {
-        this.school = school;
+    public User(School schoolId, String region, String email, String nickname, Gender gender) {
+        this.schoolId = schoolId;
         this.region = region;
         this.email = email;
         this.nickname = nickname;
