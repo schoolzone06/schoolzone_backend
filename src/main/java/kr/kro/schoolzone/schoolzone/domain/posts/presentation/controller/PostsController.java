@@ -24,6 +24,11 @@ public class PostsController {
         return ResponseEntity.ok(getPostsService.findAll());
     }
 
+    @GetMapping("/posts/{id}")
+    public ResponseEntity<PostsResponse> getPost(@PathVariable Long id) {
+        return ResponseEntity.ok(getPostsService.findOne(id));
+    }
+
     @PostMapping("/posts")
     public ResponseEntity<Posts> newPosts(@RequestBody NewPostsRequest request) {
         return ResponseEntity.ok(newPostsService.execute(request));
