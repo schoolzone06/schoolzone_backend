@@ -6,7 +6,7 @@ import kr.kro.schoolzone.schoolzone.domain.user.domain.User;
 import lombok.Getter;
 
 @Getter
-public class PostsAllResponse {
+public class PostsResponse {
 
     private final Long postsId;
     private final User user;
@@ -14,7 +14,7 @@ public class PostsAllResponse {
     private final String title;
     private final String contents;
 
-    public PostsAllResponse(Posts posts) {
+    public PostsResponse(Posts posts) {
         this.postsId = posts.getPostsId();
         this.user = posts.getUserId();
         this.category = posts.getCategory();

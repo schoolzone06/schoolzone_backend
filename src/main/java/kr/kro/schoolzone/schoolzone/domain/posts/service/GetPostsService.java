@@ -1,7 +1,7 @@
 package kr.kro.schoolzone.schoolzone.domain.posts.service;
 
 import kr.kro.schoolzone.schoolzone.domain.posts.Repository.PostsRepository;
-import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.response.PostsAllResponse;
+import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.response.PostsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ public class GetPostsService {
 
     private final PostsRepository postsRepository;
 
-    public List<PostsAllResponse> findAll() {
+    public List<PostsResponse> findAll() {
         return postsRepository.findAll().stream()
-                .map(PostsAllResponse::new)
+                .map(PostsResponse::new)
                 .collect(Collectors.toList());
     }
 }

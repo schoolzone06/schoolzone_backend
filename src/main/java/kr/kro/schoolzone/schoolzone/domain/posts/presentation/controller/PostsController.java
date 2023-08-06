@@ -2,7 +2,7 @@ package kr.kro.schoolzone.schoolzone.domain.posts.presentation.controller;
 
 import kr.kro.schoolzone.schoolzone.domain.posts.domain.Posts;
 import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.request.NewPostsRequest;
-import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.response.PostsAllResponse;
+import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.response.PostsResponse;
 import kr.kro.schoolzone.schoolzone.domain.posts.service.GetPostsService;
 import kr.kro.schoolzone.schoolzone.domain.posts.service.NewPostsService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class PostsController {
     private final NewPostsService newPostsService;
 
     @GetMapping("/posts")
-    public ResponseEntity<List<PostsAllResponse>> getPosts() {
+    public ResponseEntity<List<PostsResponse>> getPosts() {
         return ResponseEntity.ok(getPostsService.findAll());
     }
 
