@@ -29,6 +29,7 @@ public class User {
     private String nickname;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Builder

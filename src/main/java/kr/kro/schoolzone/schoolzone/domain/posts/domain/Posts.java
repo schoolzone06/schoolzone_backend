@@ -21,6 +21,7 @@ public class Posts extends BaseTimeEntity {
     private User user;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @Column(nullable = false)
