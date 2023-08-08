@@ -3,6 +3,7 @@ package kr.kro.schoolzone.schoolzone.domain.posts.presentation.controller;
 import kr.kro.schoolzone.schoolzone.domain.posts.domain.Posts;
 import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.request.NewPostsRequest;
 import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.response.GetPostsResponse;
+import kr.kro.schoolzone.schoolzone.domain.posts.service.DeletePostsService;
 import kr.kro.schoolzone.schoolzone.domain.posts.service.GetPostsService;
 import kr.kro.schoolzone.schoolzone.domain.posts.service.NewPostsService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class PostsController {
 
     private final GetPostsService getPostsService;
     private final NewPostsService newPostsService;
+    private final DeletePostsService deletePostsService;
 
     @GetMapping("/posts")
     public ResponseEntity<List<GetPostsResponse>> getPosts() {
@@ -32,5 +34,10 @@ public class PostsController {
     @PostMapping("/posts")
     public ResponseEntity<Posts> newPosts(@RequestBody NewPostsRequest request) {
         return ResponseEntity.ok(newPostsService.execute(request));
+    }
+
+    @DeleteMapping("/posts/{id}")
+    public ResponseEntity<Long> deletePosts(@PathVariable Long id) {
+        return ResponseEntity.ok(deletePostsService.execute(id));
     }
 }
