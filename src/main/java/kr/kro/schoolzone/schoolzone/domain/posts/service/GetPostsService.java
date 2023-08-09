@@ -24,4 +24,8 @@ public class GetPostsService {
     public GetPostsResponse findOne(Long id) {
         return new GetPostsResponse(postsRepository.findById(id).orElse(new Posts()));
     }
+
+    public Posts findPost(Long id) {
+        return postsRepository.findById(id).orElse(new Posts());
+    }
 }
