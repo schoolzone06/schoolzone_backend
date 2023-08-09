@@ -1,6 +1,6 @@
 package kr.kro.schoolzone.schoolzone.domain.posts.service;
 
-import kr.kro.schoolzone.schoolzone.domain.posts.Repository.PostsRepository;
+import kr.kro.schoolzone.schoolzone.domain.posts.repository.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

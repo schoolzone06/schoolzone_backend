@@ -1,4 +1,4 @@
-package kr.kro.schoolzone.schoolzone.domain.posts.Repository;
+package kr.kro.schoolzone.schoolzone.domain.posts.repository;
 
 import kr.kro.schoolzone.schoolzone.domain.posts.domain.Posts;
 import org.springframework.data.jpa.repository.JpaRepository;

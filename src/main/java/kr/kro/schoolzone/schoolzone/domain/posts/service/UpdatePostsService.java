@@ -1,6 +1,6 @@
 package kr.kro.schoolzone.schoolzone.domain.posts.service;
 
-import kr.kro.schoolzone.schoolzone.domain.posts.Repository.PostsRepository;
+import kr.kro.schoolzone.schoolzone.domain.posts.repository.PostsRepository;
 import kr.kro.schoolzone.schoolzone.domain.posts.domain.Posts;
 import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.request.UpdatePostsRequest;
 import lombok.RequiredArgsConstructor;
