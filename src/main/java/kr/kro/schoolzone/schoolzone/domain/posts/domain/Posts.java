@@ -1,6 +1,7 @@
 package kr.kro.schoolzone.schoolzone.domain.posts.domain;
 
 import jakarta.persistence.*;
+import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.request.UpdatePostsRequest;
 import kr.kro.schoolzone.schoolzone.domain.user.domain.User;
 import kr.kro.schoolzone.schoolzone.global.entity.BaseTimeEntity;
 import lombok.Builder;
@@ -37,5 +38,12 @@ public class Posts extends BaseTimeEntity {
         this.category = category;
         this.title = title;
         this.contents = contents;
+    }
+
+    public Posts update(UpdatePostsRequest request) {
+        this.title = request.getTitle();
+        this.contents = request.getContents();
+        this.category = request.getCategory();
+        return this;
     }
 }
