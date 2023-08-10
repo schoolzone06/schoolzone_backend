@@ -1,6 +1,7 @@
 package kr.kro.schoolzone.schoolzone.domain.comments.domain;
 
 import jakarta.persistence.*;
+import kr.kro.schoolzone.schoolzone.domain.comments.presentation.dto.request.NewOrUpdateCommentsRequest;
 import kr.kro.schoolzone.schoolzone.domain.posts.domain.Posts;
 import kr.kro.schoolzone.schoolzone.domain.user.domain.User;
 import kr.kro.schoolzone.schoolzone.global.entity.BaseTimeEntity;
@@ -34,5 +35,10 @@ public class Comments extends BaseTimeEntity {
         this.userId = userId;
         this.postsId = postsId;
         this.contents = contents;
+    }
+
+    public Comments update(NewOrUpdateCommentsRequest request) {
+        this.contents = request.getContents();
+        return this;
     }
 }
