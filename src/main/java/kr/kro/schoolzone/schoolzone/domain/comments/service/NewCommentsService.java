@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class NewCommentsRequestService {
+public class NewCommentsService {
 
     private final CommentsRepository commentsRepository;
     private final GetPostsService getPostsService;

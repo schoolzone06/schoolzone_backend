@@ -4,7 +4,7 @@ import kr.kro.schoolzone.schoolzone.domain.comments.domain.Comments;
 import kr.kro.schoolzone.schoolzone.domain.comments.presentation.dto.request.NewOrUpdateCommentsRequest;
 import kr.kro.schoolzone.schoolzone.domain.comments.presentation.dto.response.GetCommentsResponse;
 import kr.kro.schoolzone.schoolzone.domain.comments.service.GetCommentsListService;
-import kr.kro.schoolzone.schoolzone.domain.comments.service.NewCommentsRequestService;
+import kr.kro.schoolzone.schoolzone.domain.comments.service.NewCommentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ import java.util.List;
 public class CommentsController {
 
     private final GetCommentsListService getCommentsListService;
-    private final NewCommentsRequestService newCommentsRequestService;
+    private final NewCommentsService newCommentsService;
 
     @GetMapping("/comments/{postsId}")
     public ResponseEntity<List<GetCommentsResponse>> getComments(@PathVariable Long postsId) {
@@ -26,6 +26,6 @@ public class CommentsController {
 
     @PostMapping("/comments")
     public ResponseEntity<Comments> newComments(@RequestBody NewOrUpdateCommentsRequest request) {
-        return ResponseEntity.ok(newCommentsRequestService.execute(request));
+        return ResponseEntity.ok(newCommentsService.execute(request));
     }
 }
