@@ -2,7 +2,6 @@ package kr.kro.schoolzone.schoolzone.domain.comments.service;
 
 import kr.kro.schoolzone.schoolzone.domain.comments.presentation.dto.response.GetCommentsResponse;
 import kr.kro.schoolzone.schoolzone.domain.comments.repository.CommentsRepository;
-import kr.kro.schoolzone.schoolzone.domain.posts.domain.Posts;
 import kr.kro.schoolzone.schoolzone.domain.posts.service.GetPostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
