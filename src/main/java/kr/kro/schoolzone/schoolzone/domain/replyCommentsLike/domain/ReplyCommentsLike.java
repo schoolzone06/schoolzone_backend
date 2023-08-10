@@ -18,13 +18,11 @@ public class ReplyCommentsLike {
     private Long replyCommentsLikeId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User userId;
 
     @OneToOne
-    @JoinColumn(name = "reply_comments_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "reply_comments_id", nullable = false)
     private ReplyComments replyCommentsId;
 
     @Builder

@@ -18,13 +18,11 @@ public class ReplyComments {
     private Long replyCommentsId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User userId;
 
     @ManyToOne
-    @JoinColumn(name = "comments_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "comments_id", nullable = false)
     private Comments commentsId;
 
     @Column(nullable = false)
