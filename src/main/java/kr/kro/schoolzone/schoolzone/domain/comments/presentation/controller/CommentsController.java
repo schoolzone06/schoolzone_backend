@@ -1,7 +1,7 @@
 package kr.kro.schoolzone.schoolzone.domain.comments.presentation.controller;
 
 import kr.kro.schoolzone.schoolzone.domain.comments.domain.Comments;
-import kr.kro.schoolzone.schoolzone.domain.comments.presentation.dto.request.NewCommentsRequest;
+import kr.kro.schoolzone.schoolzone.domain.comments.presentation.dto.request.NewOrUpdateCommentsRequest;
 import kr.kro.schoolzone.schoolzone.domain.comments.presentation.dto.response.GetCommentsResponse;
 import kr.kro.schoolzone.schoolzone.domain.comments.service.GetCommentsListService;
 import kr.kro.schoolzone.schoolzone.domain.comments.service.NewCommentsRequestService;
@@ -25,7 +25,7 @@ public class CommentsController {
     }
 
     @PostMapping("/comments")
-    public ResponseEntity<Comments> newComments(@RequestBody NewCommentsRequest request) {
+    public ResponseEntity<Comments> newComments(@RequestBody NewOrUpdateCommentsRequest request) {
         return ResponseEntity.ok(newCommentsRequestService.execute(request));
     }
 }

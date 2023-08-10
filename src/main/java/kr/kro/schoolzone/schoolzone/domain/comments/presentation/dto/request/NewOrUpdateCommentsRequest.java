@@ -6,7 +6,7 @@ import kr.kro.schoolzone.schoolzone.domain.user.domain.User;
 import lombok.Getter;
 
 @Getter
-public class NewCommentsRequest {
+public class NewOrUpdateCommentsRequest {
 
     private Long userId;
     private Long postsId;

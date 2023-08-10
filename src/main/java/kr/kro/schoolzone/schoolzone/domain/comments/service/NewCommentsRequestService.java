@@ -1,7 +1,7 @@
 package kr.kro.schoolzone.schoolzone.domain.comments.service;
 
 import kr.kro.schoolzone.schoolzone.domain.comments.domain.Comments;
-import kr.kro.schoolzone.schoolzone.domain.comments.presentation.dto.request.NewCommentsRequest;
+import kr.kro.schoolzone.schoolzone.domain.comments.presentation.dto.request.NewOrUpdateCommentsRequest;
 import kr.kro.schoolzone.schoolzone.domain.comments.repository.CommentsRepository;
 import kr.kro.schoolzone.schoolzone.domain.posts.domain.Posts;
 import kr.kro.schoolzone.schoolzone.domain.posts.service.GetPostsService;
@@ -20,7 +20,7 @@ public class NewCommentsRequestService {
     private final GetOneUserService getOneUserService;
 
     @Transactional
-    public Comments execute(NewCommentsRequest request) {
+    public Comments execute(NewOrUpdateCommentsRequest request) {
         Posts postsId = getPostsService.findPost(request.getPostsId());
         User userId = getOneUserService.execute(request.getUserId());
         return commentsRepository.save(request.toEntity(userId, postsId));
