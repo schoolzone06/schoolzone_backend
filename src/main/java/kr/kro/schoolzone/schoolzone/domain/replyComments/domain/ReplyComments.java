@@ -2,7 +2,9 @@ package kr.kro.schoolzone.schoolzone.domain.replyComments.domain;
 
 import jakarta.persistence.*;
 import kr.kro.schoolzone.schoolzone.domain.comments.domain.Comments;
+import kr.kro.schoolzone.schoolzone.domain.replyComments.presentation.dto.request.UpdateReplyCommentsRequest;
 import kr.kro.schoolzone.schoolzone.domain.user.domain.User;
+import kr.kro.schoolzone.schoolzone.global.entity.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class ReplyComments {
+public class ReplyComments extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +35,10 @@ public class ReplyComments {
         this.userId = userId;
         this.commentsId = commentsId;
         this.contents = contents;
+    }
+
+    public ReplyComments update(UpdateReplyCommentsRequest request) {
+        this.contents = request.getContents();
+        return this;
     }
 }
