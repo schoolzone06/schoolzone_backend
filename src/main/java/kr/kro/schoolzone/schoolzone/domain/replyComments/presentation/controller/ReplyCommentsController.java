@@ -4,6 +4,7 @@ import kr.kro.schoolzone.schoolzone.domain.replyComments.domain.ReplyComments;
 import kr.kro.schoolzone.schoolzone.domain.replyComments.presentation.dto.request.NewReplyCommentsRequest;
 import kr.kro.schoolzone.schoolzone.domain.replyComments.presentation.dto.request.UpdateReplyCommentsRequest;
 import kr.kro.schoolzone.schoolzone.domain.replyComments.presentation.dto.response.GetReplyCommentsResponse;
+import kr.kro.schoolzone.schoolzone.domain.replyComments.service.DeleteReplyCommentsService;
 import kr.kro.schoolzone.schoolzone.domain.replyComments.service.GetReplyCommentsService;
 import kr.kro.schoolzone.schoolzone.domain.replyComments.service.NewReplyCommentsService;
 import kr.kro.schoolzone.schoolzone.domain.replyComments.service.UpdateReplyCommentsService;
@@ -21,6 +22,7 @@ public class ReplyCommentsController {
     private final GetReplyCommentsService getReplyCommentsService;
     private final NewReplyCommentsService newReplyCommentsService;
     private final UpdateReplyCommentsService updateReplyCommentsService;
+    private final DeleteReplyCommentsService deleteReplyCommentsService;
 
     @GetMapping("/replyComments/{commentsId}")
     public ResponseEntity<List<GetReplyCommentsResponse>> getReplyComments(@PathVariable Long commentsId) {
@@ -36,5 +38,10 @@ public class ReplyCommentsController {
     public ResponseEntity<ReplyComments> updateReplyComments(@PathVariable Long replyCommentsId,
                                                              @RequestBody UpdateReplyCommentsRequest request) {
         return ResponseEntity.ok(updateReplyCommentsService.execute(replyCommentsId, request));
+    }
+
+    @DeleteMapping("/replyComments/{replyCommentsId}")
+    public ResponseEntity<Long> deleteReplyComments(@PathVariable Long replyCommentsId) {
+        return ResponseEntity.ok(deleteReplyCommentsService.execute(replyCommentsId));
     }
 }
