@@ -21,4 +21,8 @@ public class GetPostsLikeService {
                 .map(PostsLikeListResponse::new)
                 .collect(Collectors.toList());
     }
+
+    public Integer getCount(Long postsId) {
+        return postsLikeRepository.findByPostsId(getPostsService.findPost(postsId)).toArray().length;
+    }
 }

@@ -22,4 +22,9 @@ public class PostsLikeController {
     public ResponseEntity<List<PostsLikeListResponse>> getPostsLikeList(@PathVariable Long postsId) {
         return ResponseEntity.ok(getPostsLikeService.getList(postsId));
     }
+
+    @GetMapping("/postsLike/count/{postsId}")
+    public ResponseEntity<Integer> getPostsLikeCount(@PathVariable Long postsId) {
+        return ResponseEntity.ok(getPostsLikeService.getCount(postsId));
+    }
 }
