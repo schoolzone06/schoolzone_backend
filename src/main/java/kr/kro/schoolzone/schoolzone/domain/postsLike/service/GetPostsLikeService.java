@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class GetPostsLikeListService {
+public class GetPostsLikeService {
 
     private final PostsLikeRepository postsLikeRepository;
     private final GetPostsService getPostsService;
 
-    public List<PostsLikeListResponse> execute(Long postsId) {
+    public List<PostsLikeListResponse> getList(Long postsId) {
         return postsLikeRepository.findByPostsId(getPostsService.findPost(postsId)).stream()
                 .map(PostsLikeListResponse::new)
                 .collect(Collectors.toList());
