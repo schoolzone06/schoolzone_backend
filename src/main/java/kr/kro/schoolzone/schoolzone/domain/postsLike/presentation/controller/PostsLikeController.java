@@ -1,13 +1,13 @@
 package kr.kro.schoolzone.schoolzone.domain.postsLike.presentation.controller;
 
+import kr.kro.schoolzone.schoolzone.domain.postsLike.domain.PostsLike;
+import kr.kro.schoolzone.schoolzone.domain.postsLike.presentation.dto.request.PostsLikeRequest;
 import kr.kro.schoolzone.schoolzone.domain.postsLike.presentation.dto.response.PostsLikeListResponse;
 import kr.kro.schoolzone.schoolzone.domain.postsLike.service.GetPostsLikeService;
+import kr.kro.schoolzone.schoolzone.domain.postsLike.service.NewPostsLikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import java.util.List;
 public class PostsLikeController {
 
     private final GetPostsLikeService getPostsLikeService;
+    private final NewPostsLikeService newPostsLikeService;
 
     @GetMapping("/postsLike/list/{postsId}")
     public ResponseEntity<List<PostsLikeListResponse>> getPostsLikeList(@PathVariable Long postsId) {
@@ -26,5 +27,10 @@ public class PostsLikeController {
     @GetMapping("/postsLike/count/{postsId}")
     public ResponseEntity<Integer> getPostsLikeCount(@PathVariable Long postsId) {
         return ResponseEntity.ok(getPostsLikeService.getCount(postsId));
+    }
+
+    @PostMapping("/postsLike")
+    public ResponseEntity<PostsLike> newPostsLike(@RequestBody PostsLikeRequest request) {
+        return ResponseEntity.ok(newPostsLikeService.execute(request));
     }
 }
