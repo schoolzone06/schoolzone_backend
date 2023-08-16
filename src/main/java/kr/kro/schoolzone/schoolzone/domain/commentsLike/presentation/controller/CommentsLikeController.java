@@ -2,6 +2,7 @@ package kr.kro.schoolzone.schoolzone.domain.commentsLike.presentation.controller
 
 import kr.kro.schoolzone.schoolzone.domain.commentsLike.domain.CommentsLike;
 import kr.kro.schoolzone.schoolzone.domain.commentsLike.presentation.dto.request.CommentsLikeRequest;
+import kr.kro.schoolzone.schoolzone.domain.commentsLike.service.DeleteCommentsLikeService;
 import kr.kro.schoolzone.schoolzone.domain.commentsLike.service.GetCommentsLikeCountService;
 import kr.kro.schoolzone.schoolzone.domain.commentsLike.service.NewCommentsLikeService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public class CommentsLikeController {
 
     private final GetCommentsLikeCountService getCommentsLikeCountService;
     private final NewCommentsLikeService newCommentsLikeService;
+    private final DeleteCommentsLikeService deleteCommentsLikeService;
 
     @GetMapping("/commentsLike/{commentsId}")
     public ResponseEntity<Integer> getCommentsLikeCount(@PathVariable Long commentsId) {
@@ -24,5 +26,10 @@ public class CommentsLikeController {
     @PostMapping("/commentsLike")
     public ResponseEntity<CommentsLike> newCommentsLike(@RequestBody CommentsLikeRequest request) {
         return ResponseEntity.ok(newCommentsLikeService.execute(request));
+    }
+
+    @DeleteMapping("/commentsLike/{commentsLikeId}")
+    public ResponseEntity<Long> deleteCommentsLike(@PathVariable Long commentsLikeId) {
+        return ResponseEntity.ok(deleteCommentsLikeService.execute(commentsLikeId));
     }
 }
