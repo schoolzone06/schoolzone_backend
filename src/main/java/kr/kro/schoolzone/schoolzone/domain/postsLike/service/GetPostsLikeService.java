@@ -16,13 +16,9 @@ public class GetPostsLikeService {
     private final PostsLikeRepository postsLikeRepository;
     private final GetPostsService getPostsService;
 
-    public List<PostsLikeListResponse> getList(Long postsId) {
+    public List<PostsLikeListResponse> execute(Long postsId) {
         return postsLikeRepository.findByPostsId(getPostsService.findPost(postsId)).stream()
                 .map(PostsLikeListResponse::new)
                 .collect(Collectors.toList());
-    }
-
-    public Integer getCount(Long postsId) {
-        return postsLikeRepository.findByPostsId(getPostsService.findPost(postsId)).size();
     }
 }
