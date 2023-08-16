@@ -23,6 +23,6 @@ public class GetPostsLikeService {
     }
 
     public Integer getCount(Long postsId) {
-        return postsLikeRepository.findByPostsId(getPostsService.findPost(postsId)).toArray().length;
+        return postsLikeRepository.findByPostsId(getPostsService.findPost(postsId)).size();
     }
 }

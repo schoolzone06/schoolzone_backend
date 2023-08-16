@@ -15,6 +15,6 @@ public class GetCommentsLikeCountService {
 
     public Integer execute(Long commentsId) {
         Comments comments = getCommentsOneService.execute(commentsId);
-        return commentsLikeRepository.findByCommentsId(comments).toArray().length;
+        return commentsLikeRepository.findByCommentsId(comments).size();
     }
 }
