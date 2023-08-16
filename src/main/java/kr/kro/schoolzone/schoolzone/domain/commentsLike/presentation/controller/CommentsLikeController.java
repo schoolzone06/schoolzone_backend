@@ -2,12 +2,15 @@ package kr.kro.schoolzone.schoolzone.domain.commentsLike.presentation.controller
 
 import kr.kro.schoolzone.schoolzone.domain.commentsLike.domain.CommentsLike;
 import kr.kro.schoolzone.schoolzone.domain.commentsLike.presentation.dto.request.CommentsLikeRequest;
+import kr.kro.schoolzone.schoolzone.domain.commentsLike.presentation.dto.response.CommentsLikeResponse;
 import kr.kro.schoolzone.schoolzone.domain.commentsLike.service.DeleteCommentsLikeService;
 import kr.kro.schoolzone.schoolzone.domain.commentsLike.service.GetCommentsLikeCountService;
 import kr.kro.schoolzone.schoolzone.domain.commentsLike.service.NewCommentsLikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,7 +22,7 @@ public class CommentsLikeController {
     private final DeleteCommentsLikeService deleteCommentsLikeService;
 
     @GetMapping("/commentsLike/{commentsId}")
-    public ResponseEntity<Integer> getCommentsLikeCount(@PathVariable Long commentsId) {
+    public ResponseEntity<List<CommentsLikeResponse>> getCommentsLikeCount(@PathVariable Long commentsId) {
         return ResponseEntity.ok(getCommentsLikeCountService.execute(commentsId));
     }
 
