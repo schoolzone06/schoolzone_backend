@@ -1,12 +1,12 @@
 package kr.kro.schoolzone.schoolzone.domain.replyCommentsLike.presentation.controller;
 
+import kr.kro.schoolzone.schoolzone.domain.replyCommentsLike.domain.ReplyCommentsLike;
+import kr.kro.schoolzone.schoolzone.domain.replyCommentsLike.presentation.dto.request.ReplyCommentsLikeRequest;
 import kr.kro.schoolzone.schoolzone.domain.replyCommentsLike.service.GetReplyCommentsLikeCountService;
+import kr.kro.schoolzone.schoolzone.domain.replyCommentsLike.service.NewReplyCommentsLikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,9 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReplyCommentsLikeController {
 
     private final GetReplyCommentsLikeCountService getReplyCommentsLikeCountService;
+    private final NewReplyCommentsLikeService newReplyCommentsLikeService;
 
     @GetMapping("/replyCommentsLike/{replyCommentsId}")
     public ResponseEntity<Integer> getReplyCommentsLikeCount(@PathVariable Long replyCommentsId) {
         return ResponseEntity.ok(getReplyCommentsLikeCountService.execute(replyCommentsId));
+    }
+
+    @PostMapping("/replyCommentsLike")
+    public ResponseEntity<ReplyCommentsLike> newReplyCommentsLike(@RequestBody ReplyCommentsLikeRequest request) {
+        return ResponseEntity.ok(newReplyCommentsLikeService.execute(request));
     }
 }
