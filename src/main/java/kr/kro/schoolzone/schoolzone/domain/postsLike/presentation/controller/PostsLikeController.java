@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/posts/like")
 @RequiredArgsConstructor
 public class PostsLikeController {
 
@@ -21,17 +21,17 @@ public class PostsLikeController {
     private final NewPostsLikeService newPostsLikeService;
     private final DeletePostsLikeService deletePostsLikeService;
 
-    @GetMapping("/postsLike/list/{postsId}")
+    @GetMapping("/{postsId}")
     public ResponseEntity<List<PostsLikeListResponse>> getPostsLikeList(@PathVariable Long postsId) {
         return ResponseEntity.ok(getPostsLikeService.execute(postsId));
     }
 
-    @PostMapping("/postsLike")
+    @PostMapping
     public ResponseEntity<PostsLike> newPostsLike(@RequestBody PostsLikeRequest request) {
         return ResponseEntity.ok(newPostsLikeService.execute(request));
     }
 
-    @DeleteMapping("/postsLike/{postsLikeId}")
+    @DeleteMapping("/{postsLikeId}")
     public ResponseEntity<Long> deletePostsLike(@PathVariable Long postsLikeId) {
         return ResponseEntity.ok(deletePostsLikeService.execute(postsLikeId));
     }

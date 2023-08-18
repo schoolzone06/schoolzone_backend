@@ -14,24 +14,24 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/comments/like")
 public class CommentsLikeController {
 
     private final GetCommentsLikeCountService getCommentsLikeCountService;
     private final NewCommentsLikeService newCommentsLikeService;
     private final DeleteCommentsLikeService deleteCommentsLikeService;
 
-    @GetMapping("/commentsLike/{commentsId}")
+    @GetMapping("/{commentsId}")
     public ResponseEntity<List<CommentsLikeResponse>> getCommentsLikeCount(@PathVariable Long commentsId) {
         return ResponseEntity.ok(getCommentsLikeCountService.execute(commentsId));
     }
 
-    @PostMapping("/commentsLike")
+    @PostMapping
     public ResponseEntity<CommentsLike> newCommentsLike(@RequestBody CommentsLikeRequest request) {
         return ResponseEntity.ok(newCommentsLikeService.execute(request));
     }
 
-    @DeleteMapping("/commentsLike/{commentsLikeId}")
+    @DeleteMapping("/{commentsLikeId}")
     public ResponseEntity<Long> deleteCommentsLike(@PathVariable Long commentsLikeId) {
         return ResponseEntity.ok(deleteCommentsLikeService.execute(commentsLikeId));
     }
