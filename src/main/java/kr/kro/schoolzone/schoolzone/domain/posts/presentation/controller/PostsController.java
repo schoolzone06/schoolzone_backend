@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/posts")
 @RequiredArgsConstructor
 public class PostsController {
 
@@ -24,28 +24,28 @@ public class PostsController {
     private final UpdatePostsService updatePostsService;
     private final DeletePostsService deletePostsService;
 
-    @GetMapping("/posts")
+    @GetMapping
     public ResponseEntity<List<GetPostsResponse>> getPosts() {
         return ResponseEntity.ok(getPostsService.findAll());
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<GetPostsResponse> getPost(@PathVariable Long id) {
         return ResponseEntity.ok(getPostsService.findOne(id));
     }
 
-    @PostMapping("/posts")
+    @PostMapping
     public ResponseEntity<Posts> newPosts(@RequestBody NewPostsRequest request) {
         return ResponseEntity.ok(newPostsService.execute(request));
     }
 
-    @PutMapping("/posts/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Posts> updatePosts(@PathVariable Long id,
                                              @RequestBody UpdatePostsRequest request) {
         return ResponseEntity.ok(updatePostsService.execute(id, request));
     }
 
-    @DeleteMapping("/posts/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Long> deletePosts(@PathVariable Long id) {
         return ResponseEntity.ok(deletePostsService.execute(id));
     }

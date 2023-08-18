@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/replyComments")
 public class ReplyCommentsController {
 
     private final GetReplyCommentsService getReplyCommentsService;
@@ -24,23 +24,23 @@ public class ReplyCommentsController {
     private final UpdateReplyCommentsService updateReplyCommentsService;
     private final DeleteReplyCommentsService deleteReplyCommentsService;
 
-    @GetMapping("/replyComments/{commentsId}")
+    @GetMapping("/{commentsId}")
     public ResponseEntity<List<GetReplyCommentsResponse>> getReplyComments(@PathVariable Long commentsId) {
         return ResponseEntity.ok(getReplyCommentsService.execute(commentsId));
     }
 
-    @PostMapping("/replyComments")
+    @PostMapping
     public ResponseEntity<ReplyComments> newReplyComments(@RequestBody NewReplyCommentsRequest request) {
         return ResponseEntity.ok(newReplyCommentsService.execute(request));
     }
 
-    @PutMapping("/replyComments/{replyCommentsId}")
+    @PutMapping("/{replyCommentsId}")
     public ResponseEntity<ReplyComments> updateReplyComments(@PathVariable Long replyCommentsId,
                                                              @RequestBody UpdateReplyCommentsRequest request) {
         return ResponseEntity.ok(updateReplyCommentsService.execute(replyCommentsId, request));
     }
 
-    @DeleteMapping("/replyComments/{replyCommentsId}")
+    @DeleteMapping("/{replyCommentsId}")
     public ResponseEntity<Long> deleteReplyComments(@PathVariable Long replyCommentsId) {
         return ResponseEntity.ok(deleteReplyCommentsService.execute(replyCommentsId));
     }
