@@ -35,12 +35,4 @@ public class SchoolInfoResponse {
     private String FOND_YMD;                    // 설립일자
     private String FOAS_MEMRD;                  // 개교기념일
     private String LOAD_DTM;                    // 수정일
-
-    public School toEntity() {
-        return School.builder()
-                .schoolName(this.SCHUL_NM)
-                .schoolDomain(this.HMPG_ADRES)
-                .schoolLocation(this.ORG_RDNMA)
-                .build();
-    }
 }

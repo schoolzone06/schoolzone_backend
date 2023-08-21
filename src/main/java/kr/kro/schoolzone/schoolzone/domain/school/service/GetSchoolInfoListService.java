@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
+import kr.kro.schoolzone.schoolzone.domain.school.domain.School;
 import kr.kro.schoolzone.schoolzone.domain.school.exception.NotFoundSchoolInfoException;
 import kr.kro.schoolzone.schoolzone.domain.school.presentation.dto.response.SchoolInfoResponse;
 import kr.kro.schoolzone.schoolzone.domain.school.repository.SchoolRepository;
@@ -47,7 +48,7 @@ public class GetSchoolInfoListService {
 
                 for (Object value : jsonToList) {
                     SchoolInfoResponse dto = mapper.convertValue(value, SchoolInfoResponse.class);
-                    schoolRepository.save(dto.toEntity());
+                    schoolRepository.save(updateToEntity(dto));
                 }
             }
         } catch (NullPointerException e) {
@@ -67,5 +68,30 @@ public class GetSchoolInfoListService {
                 .encode()
                 .buildAndExpand(neisApiKey, i)
                 .toUri();
+    }
+
+    private School updateToEntity(SchoolInfoResponse dto) {
+        String[] schoolLocation = dto.getORG_RDNMA().trim().split(" ");
+
+        if (schoolLocation[0].contains("광역시")) {
+            schoolLocation[0] = schoolLocation[0].replace("광역시", "");
+        } else if (schoolLocation[0].contains("특별")) {
+            if (schoolLocation[0].contains("특별자치시")) {
+                schoolLocation[0] = schoolLocation[0].replace("특별자치시", "");
+            } else if (schoolLocation[0].contains("특별자치도")) {
+                schoolLocation[0] = schoolLocation[0].replace("특별자치", "");
+            } else if (schoolLocation[0].contains("특별시")) {
+                schoolLocation[0] = schoolLocation[0].replace("특별시", "");
+            }
+        } else if (schoolLocation[0].length() == 4) {
+            String[] location = schoolLocation[0].split("");
+            schoolLocation[0] = location[0] + location[2];
+        }
+
+        return School.builder()
+                .schoolName(dto.getSCHUL_NM())
+                .schoolDomain(dto.getHMPG_ADRES())
+                .schoolLocation(schoolLocation[0] + " " + schoolLocation[1])
+                .build();
     }
 }
