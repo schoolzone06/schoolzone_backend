@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.List;
 
 @Service
@@ -53,6 +55,8 @@ public class GetSchoolInfoListService {
             }
         } catch (NullPointerException e) {
             throw new NotFoundSchoolInfoException();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -70,8 +74,8 @@ public class GetSchoolInfoListService {
                 .toUri();
     }
 
-    private School updateToEntity(SchoolInfoResponse dto) {
-        String[] schoolLocation = dto.getORG_RDNMA().trim().split(" ");
+    private School updateToEntity(SchoolInfoResponse dto) throws MalformedURLException {
+        String[] schoolLocation = dto.getORG_RDNMA().trim().replace("  ", " ").split(" ");
 
         if (schoolLocation[0].contains("광역시")) {
             schoolLocation[0] = schoolLocation[0].replace("광역시", "");
@@ -88,9 +92,34 @@ public class GetSchoolInfoListService {
             schoolLocation[0] = location[0] + location[2];
         }
 
+        String schoolDomain = dto.getHMPG_ADRES();
+
+        if (schoolDomain != null) {
+            schoolDomain = schoolDomain.trim();
+
+            if (schoolDomain.startsWith("http://")) {
+                schoolDomain = schoolDomain.substring(7);
+            } else if (schoolDomain.startsWith("https://")) {
+                schoolDomain = schoolDomain.substring(8);
+            }
+
+            if (schoolDomain.startsWith("www.")) {
+                schoolDomain = schoolDomain.replace("www.", "");
+            }
+
+            if (schoolDomain.endsWith("/")) {
+                schoolDomain = schoolDomain.replace("/", "");
+            }
+
+            if (!schoolLocation[0].equals("경북")) {
+                URL url = new URL("http://" + schoolDomain);
+                schoolDomain = url.getHost();
+            }
+        }
+
         return School.builder()
                 .schoolName(dto.getSCHUL_NM())
-                .schoolDomain(dto.getHMPG_ADRES())
+                .schoolDomain(schoolDomain)
                 .schoolLocation(schoolLocation[0] + " " + schoolLocation[1])
                 .build();
     }
