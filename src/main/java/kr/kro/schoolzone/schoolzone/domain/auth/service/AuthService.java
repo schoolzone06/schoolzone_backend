@@ -2,6 +2,8 @@ package kr.kro.schoolzone.schoolzone.domain.auth.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import kr.kro.schoolzone.schoolzone.domain.auth.presentation.dto.request.SignInRequest;
+import kr.kro.schoolzone.schoolzone.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -14,6 +16,7 @@ import java.util.Random;
 public class AuthService {
 
     private final JavaMailSender javaMailSender;
+    private final UserRepository userRepository;
 
     public String execute(String email) throws MessagingException {
         String code = createCode();
@@ -38,5 +41,9 @@ public class AuthService {
             }
         }
         return key.toString();
+    }
+
+    public void signIn(SignInRequest dto) {
+        userRepository.save(dto.toEntity());
     }
 }
