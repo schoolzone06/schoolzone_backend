@@ -15,13 +15,13 @@ public class School {
     @Column(name = "school_id")
     private Long schoolId;
 
-    @Column(name = "school_name")
+    @Column(name = "school_name", nullable = false)
     private String schoolName;
 
-    @Column(name = "school_domain")
+    @Column(name = "school_domain", nullable = false)
     private String schoolDomain;
 
-    @Column(name = "school_location")
+    @Column(name = "school_location", nullable = false)
     private String schoolLocation;
 
     @Builder
