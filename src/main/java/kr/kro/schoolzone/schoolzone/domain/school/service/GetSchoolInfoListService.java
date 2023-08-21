@@ -94,27 +94,29 @@ public class GetSchoolInfoListService {
 
         String schoolDomain = dto.getHMPG_ADRES();
 
-        if (schoolDomain != null) {
-            schoolDomain = schoolDomain.trim();
+        if (schoolDomain == null) {
+            schoolDomain = "";
+        }
 
-            if (schoolDomain.startsWith("http://")) {
-                schoolDomain = schoolDomain.substring(7);
-            } else if (schoolDomain.startsWith("https://")) {
-                schoolDomain = schoolDomain.substring(8);
-            }
+        schoolDomain = schoolDomain.trim();
 
-            if (schoolDomain.startsWith("www.")) {
-                schoolDomain = schoolDomain.replace("www.", "");
-            }
+        if (schoolDomain.startsWith("http://")) {
+            schoolDomain = schoolDomain.substring(7);
+        } else if (schoolDomain.startsWith("https://")) {
+            schoolDomain = schoolDomain.substring(8);
+        }
 
-            if (schoolDomain.endsWith("/")) {
-                schoolDomain = schoolDomain.replace("/", "");
-            }
+        if (schoolDomain.startsWith("www.")) {
+            schoolDomain = schoolDomain.replace("www.", "");
+        }
 
-            if (!schoolLocation[0].equals("경북")) {
-                URL url = new URL("http://" + schoolDomain);
-                schoolDomain = url.getHost();
-            }
+        if (schoolDomain.endsWith("/")) {
+            schoolDomain = schoolDomain.replace("/", "");
+        }
+
+        if (!schoolLocation[0].equals("경북")) {
+            URL url = new URL("http://" + schoolDomain);
+            schoolDomain = url.getHost();
         }
 
         return School.builder()
