@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class GetTimetableService {
 
     private final GetOneUserService getOneUserService;
 
-    public String execute(Long userId, String date) throws JsonProcessingException {
+    public String execute(Long userId) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -35,12 +36,13 @@ public class GetTimetableService {
 
         User user = getOneUserService.execute(userId);
         School school = user.getSchoolId();
-        ResponseEntity<String> response = restTemplate.getForEntity(getApiUri(school.getSchoolOfficeCode(), school.getSchoolCode(), date, user.getGrade(), user.getGroup()), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getApiUri(school.getSchoolOfficeCode(), school.getSchoolCode(), user.getGrade(), user.getGroup()), String.class);
         JsonNode result = mapper.readTree(response.getBody()).get("hisTimetable").get(1).get("row");
         return result.toString();
     }
 
-    private URI getApiUri(String schoolOfficeCode, String schoolCode, String date, String grade, String group) {
+    private URI getApiUri(String schoolOfficeCode, String schoolCode, String grade, String group) {
+        String date = LocalDate.now().toString().replace("-", "");
         return UriComponentsBuilder
                 .fromUriString("https://open.neis.go.kr")
                 .path("/hub/hisTimetable")

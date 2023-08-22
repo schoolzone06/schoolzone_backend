@@ -12,9 +12,8 @@ public class TimetableController {
 
     private final GetTimetableService getTimetableService;
 
-    @GetMapping("/{userId}/{date}")
-    public String getTimetable(@PathVariable Long userId,
-                               @PathVariable String date) throws JsonProcessingException {
-        return getTimetableService.execute(userId, date);
+    @GetMapping("/{userId}")
+    public String getTimetable(@PathVariable Long userId) throws JsonProcessingException {
+        return getTimetableService.execute(userId);
     }
 }
