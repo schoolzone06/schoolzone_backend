@@ -11,7 +11,11 @@ public class GetSchoolObjectService {
 
     private final SchoolRepository schoolRepository;
 
-    public School execute(String schoolDomain) {
+    public School findById(Long schoolId) {
+        return schoolRepository.findById(schoolId).orElse(new School());
+    }
+
+    public School findByDomain(String schoolDomain) {
         return schoolRepository.findBySchoolDomain(schoolDomain).orElse(new School());
     }
 }
