@@ -59,6 +59,8 @@ public class GetSchoolInfoListService {
                                     .schoolName(dto.getSCHUL_NM())
                                     .schoolLocation(getSchoolLocation(dto))
                                     .schoolDomain(getSchoolDomain(dto))
+                                    .schoolOfficeCode(dto.getATPT_OFCDC_SC_CODE())
+                                    .schoolCode(dto.getSD_SCHUL_CODE())
                                     .build()
                         );
                     }
@@ -71,6 +73,8 @@ public class GetSchoolInfoListService {
                                     .schoolName(dto.getSCHUL_NM())
                                     .schoolLocation(getSchoolLocation(dto))
                                     .schoolDomain(getSchoolDomain(dto))
+                                    .schoolOfficeCode(dto.getATPT_OFCDC_SC_CODE())
+                                    .schoolCode(dto.getSD_SCHUL_CODE())
                                     .build()
                     );
                 }

@@ -24,10 +24,18 @@ public class TempSchool {
     @Column(name = "school_location", nullable = false)
     private String schoolLocation;
 
+    @Column(name = "school_office_code", nullable = false)
+    private String schoolOfficeCode;
+
+    @Column(name = "school_code", nullable = false)
+    private String schoolCode;
+
     @Builder
-    public TempSchool(String schoolName, String schoolDomain, String schoolLocation) {
+    public TempSchool(String schoolName, String schoolDomain, String schoolLocation, String schoolOfficeCode, String schoolCode) {
         this.schoolName = schoolName;
         this.schoolDomain = schoolDomain;
         this.schoolLocation = schoolLocation;
+        this.schoolOfficeCode = schoolOfficeCode;
+        this.schoolCode = schoolCode;
     }
 }
