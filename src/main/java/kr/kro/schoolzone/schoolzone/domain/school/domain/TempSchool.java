@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class School {
+public class TempSchool {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class School {
     private String schoolLocation;
 
     @Builder
-    public School(String schoolName, String schoolDomain, String schoolLocation) {
+    public TempSchool(String schoolName, String schoolDomain, String schoolLocation) {
         this.schoolName = schoolName;
         this.schoolDomain = schoolDomain;
         this.schoolLocation = schoolLocation;
