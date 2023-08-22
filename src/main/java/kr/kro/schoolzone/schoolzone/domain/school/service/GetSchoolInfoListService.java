@@ -37,7 +37,7 @@ public class GetSchoolInfoListService {
 
     @Scheduled(fixedRate = 1000 * 60 * 60 * 24 * 7)
     public void execute() throws JsonProcessingException {
-        schoolRepository.deleteAll();
+        tempSchoolRepository.deleteAll();
 
         int i = 1;
         RestTemplate restTemplate = new RestTemplate();
@@ -51,7 +51,7 @@ public class GetSchoolInfoListService {
                 JsonNode result = mapper.readTree(response.getBody()).get("schoolInfo").get(1).get("row");
                 List<?> jsonToList = mapper.treeToValue(result, List.class);
 
-                if (schoolRepository.findAll().isEmpty()) {
+                if (schoolRepository.findAll().isEmpty() || i != 1) {
                     for (Object value : jsonToList) {
                         SchoolInfoResponse dto = mapper.convertValue(value, SchoolInfoResponse.class);
                         schoolRepository.save(
