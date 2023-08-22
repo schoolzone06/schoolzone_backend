@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import kr.kro.schoolzone.schoolzone.domain.school.domain.School;
+import kr.kro.schoolzone.schoolzone.domain.school.domain.TempSchool;
 import kr.kro.schoolzone.schoolzone.domain.school.exception.NotFoundSchoolInfoException;
 import kr.kro.schoolzone.schoolzone.domain.school.presentation.dto.response.SchoolInfoResponse;
 import kr.kro.schoolzone.schoolzone.domain.school.repository.SchoolRepository;
+import kr.kro.schoolzone.schoolzone.domain.school.repository.TempSchoolRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,7 @@ import java.util.List;
 public class GetSchoolInfoListService {
 
     private final SchoolRepository schoolRepository;
+    private final TempSchoolRepository tempSchoolRepository;
 
     @Value("${api-key.neis}")
     private String neisApiKey;
@@ -48,9 +51,28 @@ public class GetSchoolInfoListService {
                 JsonNode result = mapper.readTree(response.getBody()).get("schoolInfo").get(1).get("row");
                 List<?> jsonToList = mapper.treeToValue(result, List.class);
 
+                if (schoolRepository.findAll().isEmpty()) {
+                    for (Object value : jsonToList) {
+                        SchoolInfoResponse dto = mapper.convertValue(value, SchoolInfoResponse.class);
+                        schoolRepository.save(
+                                School.builder()
+                                    .schoolName(dto.getSCHUL_NM())
+                                    .schoolLocation(getSchoolLocation(dto))
+                                    .schoolDomain(getSchoolDomain(dto))
+                                    .build()
+                        );
+                    }
+                }
+
                 for (Object value : jsonToList) {
                     SchoolInfoResponse dto = mapper.convertValue(value, SchoolInfoResponse.class);
-                    schoolRepository.save(updateToEntity(dto));
+                    tempSchoolRepository.save(
+                            TempSchool.builder()
+                                    .schoolName(dto.getSCHUL_NM())
+                                    .schoolLocation(getSchoolLocation(dto))
+                                    .schoolDomain(getSchoolDomain(dto))
+                                    .build()
+                    );
                 }
             }
         } catch (NullPointerException e) {
@@ -74,7 +96,7 @@ public class GetSchoolInfoListService {
                 .toUri();
     }
 
-    private School updateToEntity(SchoolInfoResponse dto) throws MalformedURLException {
+    private String getSchoolLocation(SchoolInfoResponse dto) {
         String[] schoolLocation = dto.getORG_RDNMA().trim().replace("  ", " ").split(" ");
 
         if (schoolLocation[0].contains("광역시")) {
@@ -92,6 +114,10 @@ public class GetSchoolInfoListService {
             schoolLocation[0] = location[0] + location[2];
         }
 
+        return schoolLocation[0] + " " + schoolLocation[1];
+    }
+
+    private String getSchoolDomain(SchoolInfoResponse dto) throws MalformedURLException {
         String schoolDomain = dto.getHMPG_ADRES();
 
         if (schoolDomain == null) {
@@ -114,15 +140,11 @@ public class GetSchoolInfoListService {
             schoolDomain = schoolDomain.replace("/", "");
         }
 
-        if (!schoolLocation[0].equals("경북")) {
+        if (!getSchoolLocation(dto).equals("경북")) {
             URL url = new URL("http://" + schoolDomain);
             schoolDomain = url.getHost();
         }
 
-        return School.builder()
-                .schoolName(dto.getSCHUL_NM())
-                .schoolDomain(schoolDomain)
-                .schoolLocation(schoolLocation[0] + " " + schoolLocation[1])
-                .build();
+        return schoolDomain;
     }
 }
