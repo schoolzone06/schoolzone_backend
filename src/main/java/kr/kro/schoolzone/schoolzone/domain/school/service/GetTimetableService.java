@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import kr.kro.schoolzone.schoolzone.domain.school.domain.School;
+import kr.kro.schoolzone.schoolzone.domain.school.presentation.dto.response.GetTimetableResponse;
+import kr.kro.schoolzone.schoolzone.domain.school.presentation.dto.response.TimetableResponse;
 import kr.kro.schoolzone.schoolzone.domain.user.domain.User;
 import kr.kro.schoolzone.schoolzone.domain.user.service.GetOneUserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +33,7 @@ public class GetTimetableService {
 
     private final GetOneUserService getOneUserService;
 
-    public String execute(Long userId) throws JsonProcessingException {
+    public List<GetTimetableResponse> execute(Long userId) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -36,9 +41,13 @@ public class GetTimetableService {
 
         User user = getOneUserService.execute(userId);
         School school = user.getSchoolId();
-        ResponseEntity<String> response = restTemplate.getForEntity(getApiUri(school.getSchoolOfficeCode(), school.getSchoolCode(), user.getGrade(), user.getGroup()), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getApiUri(school.getSchoolOfficeCode(), school.getSchoolId(), user.getGrade(), user.getRoom()), String.class);
         JsonNode result = mapper.readTree(response.getBody()).get("hisTimetable").get(1).get("row");
-        return result.toString();
+        List<TimetableResponse> timetableResponses = Arrays.asList(mapper.treeToValue(result, TimetableResponse[].class));
+
+        return timetableResponses.stream()
+                .map(GetTimetableResponse::new)
+                .collect(Collectors.toList());
     }
 
     private URI getApiUri(String schoolOfficeCode, String schoolCode, String grade, String group) {
