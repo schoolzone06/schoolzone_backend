@@ -34,22 +34,22 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String grade;
 
-    @Column(nullable = false)
-    private String group;
+    @Column(nullable = true)
+    private String room;
 
 
     @Builder
-    public User(School schoolId, String region, String email, String nickname, Gender gender, String grade, String group) {
+    public User(School schoolId, String region, String email, String nickname, Gender gender, String grade, String room) {
         this.schoolId = schoolId;
         this.region = region;
         this.email = email;
         this.nickname = nickname;
         this.gender = gender;
         this.grade = grade;
-        this.group = group;
+        this.room = room;
     }
 
     public UserResponse toResponse() {
@@ -60,7 +60,7 @@ public class User {
                 .schoolId(this.schoolId)
                 .gender(this.gender)
                 .grade(this.grade)
-                .group(this.group)
+                .room(this.room)
                 .build();
     }
 }
