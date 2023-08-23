@@ -35,7 +35,7 @@ public class GetSchoolInfoListService {
     @Value("${api-key.neis}")
     private String neisApiKey;
 
-    @Scheduled(fixedRate = 1000 * 60 * 60 * 24 * 7)
+    // @Scheduled(fixedRate = 1000 * 60 * 60 * 24 * 7)
     public void execute() throws JsonProcessingException {
         tempSchoolRepository.deleteAll();
 
