@@ -37,7 +37,7 @@ public class GetMealInfoService {
         mapper.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
 
         School school = getSchoolObjectService.findById(schoolId);
-        ResponseEntity<String> response = restTemplate.getForEntity(getApiUri(school.getSchoolOfficeCode(), school.getSchoolCode(), date), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getApiUri(school.getSchoolOfficeCode(), school.getSchoolId(), date), String.class);
         JsonNode result = mapper.readTree(response.getBody()).get("mealServiceDietInfo").get(1).get("row");
         List<MealInfoResponse> mealInfoResponses = Arrays.asList(mapper.treeToValue(result, MealInfoResponse[].class));
         return mealInfoResponses.stream()
