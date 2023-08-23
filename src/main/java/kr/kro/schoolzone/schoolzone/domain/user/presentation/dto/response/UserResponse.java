@@ -15,16 +15,16 @@ public class UserResponse {
     private String nickname;
     private Gender gender;
     private String grade;
-    private String group;
+    private String room;
 
     @Builder
-    public UserResponse(School schoolId, String region, String email, String nickname, Gender gender, String grade, String group) {
+    public UserResponse(School schoolId, String region, String email, String nickname, Gender gender, String grade, String room) {
         this.schoolId = schoolId;
         this.region = region;
         this.email = email;
         this.nickname = nickname;
         this.gender = gender;
         this.grade = grade;
-        this.group = group;
+        this.room = room;
     }
 }
