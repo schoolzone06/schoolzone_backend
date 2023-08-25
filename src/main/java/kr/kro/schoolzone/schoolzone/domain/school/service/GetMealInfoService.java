@@ -30,7 +30,7 @@ public class GetMealInfoService {
 
     private final GetSchoolObjectService getSchoolObjectService;
 
-    public List<GetMealInfoResponse> execute(Long schoolId, String date) throws JsonProcessingException {
+    public List<GetMealInfoResponse> execute(String schoolId, String date) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

@@ -11,8 +11,8 @@ public class GetSchoolObjectService {
 
     private final SchoolRepository schoolRepository;
 
-    public School findById(Long schoolId) {
-        return schoolRepository.findById(schoolId).orElse(new School());
+    public School findById(String schoolId) {
+        return schoolRepository.findBySchoolId(schoolId).orElse(new School());
     }
 
     public School findByDomain(String schoolDomain) {

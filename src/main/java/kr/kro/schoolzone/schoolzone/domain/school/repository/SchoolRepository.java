@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface SchoolRepository extends JpaRepository<School, Long> {
 
+    Optional<School> findBySchoolId(String schoolId);
     Optional<School> findBySchoolDomain(String schoolDomain);
 }

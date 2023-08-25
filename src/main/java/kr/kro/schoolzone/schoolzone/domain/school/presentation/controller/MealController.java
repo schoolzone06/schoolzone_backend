@@ -19,7 +19,7 @@ public class MealController {
     private final GetMealInfoService getMealInfoService;
 
     @GetMapping("/{schoolId}/{date}")
-    public List<GetMealInfoResponse> getMealInfo(@PathVariable Long schoolId,
+    public List<GetMealInfoResponse> getMealInfo(@PathVariable String schoolId,
                                                  @PathVariable String date) throws JsonProcessingException {
         return getMealInfoService.execute(schoolId, date);
     }
