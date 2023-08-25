@@ -18,9 +18,13 @@ public class MealController {
 
     private final GetMealInfoService getMealInfoService;
 
-    @GetMapping("/{schoolId}/{date}")
-    public List<GetMealInfoResponse> getMealInfo(@PathVariable String schoolId,
-                                                 @PathVariable String date) throws JsonProcessingException {
-        return getMealInfoService.execute(schoolId, date);
+    @GetMapping("/one/{schoolId}")
+    public List<GetMealInfoResponse> getMealInfoOne(@PathVariable String schoolId) throws JsonProcessingException {
+        return getMealInfoService.getOne(schoolId);
+    }
+
+    @GetMapping("/all/{schoolId}")
+    public List<GetMealInfoResponse> getMealInfoAll(@PathVariable String schoolId) throws JsonProcessingException {
+        return getMealInfoService.getAll(schoolId);
     }
 }
