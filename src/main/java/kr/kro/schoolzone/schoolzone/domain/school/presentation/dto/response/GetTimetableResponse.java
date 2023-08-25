@@ -10,7 +10,7 @@ public class GetTimetableResponse {
     private final String subject;
 
     public GetTimetableResponse(TimetableResponse response) {
-        this.date = response.getLOAD_DTM();
+        this.date = response.getALL_TI_YMD();
         this.period = response.getPERIO();
         this.subject = response.getITRT_CNTNT();
     }
