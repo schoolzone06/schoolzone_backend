@@ -2,7 +2,6 @@ package kr.kro.schoolzone.schoolzone.domain.auth.presentation.dto.request;
 
 import kr.kro.schoolzone.schoolzone.domain.user.domain.Gender;
 import kr.kro.schoolzone.schoolzone.domain.user.domain.User;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter

@@ -11,9 +11,8 @@ import lombok.NoArgsConstructor;
 public class School {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "school_id")
-    private Long schoolId;
+    private String schoolId;
 
     @Column(name = "school_name", nullable = false)
     private String schoolName;
@@ -24,10 +23,15 @@ public class School {
     @Column(name = "school_location", nullable = false)
     private String schoolLocation;
 
+    @Column(name = "school_office_code", nullable = false)
+    private String schoolOfficeCode;
+
     @Builder
-    public School(String schoolName, String schoolDomain, String schoolLocation) {
+    public School(String schoolId, String schoolName, String schoolDomain, String schoolLocation, String schoolOfficeCode) {
+        this.schoolId = schoolId;
         this.schoolName = schoolName;
         this.schoolDomain = schoolDomain;
         this.schoolLocation = schoolLocation;
+        this.schoolOfficeCode = schoolOfficeCode;
     }
 }
