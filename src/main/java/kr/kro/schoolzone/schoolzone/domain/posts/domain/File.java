@@ -1,9 +1,7 @@
 package kr.kro.schoolzone.schoolzone.domain.posts.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,4 +13,25 @@ public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JoinColumn(name = "posts_id")
+    @ManyToOne
+    private Posts file;
+
+    @Column(nullable = false)
+    private String originalName;
+
+    @Column(nullable = false)
+    private String changedName;
+
+    @Column(nullable = false)
+    private Long size;
+
+    @Builder
+    public File(Posts file, String originalName, String changedName, Long size) {
+        this.file = file;
+        this.originalName = originalName;
+        this.changedName = changedName;
+        this.size = size;
+    }
 }
