@@ -17,7 +17,10 @@ import java.util.UUID;
 public class SaveFileService {
 
     private final FileRepository fileRepository;
-    private final GetPostsService getPostsService;;
+    private final GetPostsService getPostsService;
+
+    @Value("${file.dir}")
+    private String dir;
 
     @Transactional
     public Media[] execute(MultipartFile[] media, Long postsId) throws IOException {
@@ -30,7 +33,8 @@ public class SaveFileService {
 
         for (MultipartFile v : media) {
             String fileName = v.getResource().getFilename();
-            result[idx++] = fileRepository.save(
+
+            result[idx] = fileRepository.save(
                     Media.builder()
                         .file(getPostsService.findPost(postsId))
                         .originalName(fileName)
@@ -38,6 +42,13 @@ public class SaveFileService {
                         .size(v.getSize())
                         .build()
             );
+            File savedFile = new File(dir + result[idx++].getChangedName());
+
+            if (!savedFile.exists()) {
+                savedFile.mkdirs();
+            }
+
+            v.transferTo(savedFile);
         }
 
         return result;
