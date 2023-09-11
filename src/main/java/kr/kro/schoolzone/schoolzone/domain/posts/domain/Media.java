@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class File {
+public class Media {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class File {
     private Long size;
 
     @Builder
-    public File(Posts file, String originalName, String changedName, Long size) {
+    public Media(Posts file, String originalName, String changedName, Long size) {
         this.file = file;
         this.originalName = originalName;
         this.changedName = changedName;
