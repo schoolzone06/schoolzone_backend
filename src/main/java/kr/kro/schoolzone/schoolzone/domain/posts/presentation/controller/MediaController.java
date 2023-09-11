@@ -15,8 +15,8 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/files")
-public class FilesController {
+@RequestMapping("/api/media")
+public class MediaController {
 
     private final SaveFileService saveFileService;
     private final GetPostsService getPostsService;
