@@ -1,7 +1,7 @@
 package kr.kro.schoolzone.schoolzone.domain.posts.service;
 
 import kr.kro.schoolzone.schoolzone.domain.posts.domain.Media;
-import kr.kro.schoolzone.schoolzone.domain.posts.repository.MediaRepository;
+import kr.kro.schoolzone.schoolzone.domain.posts.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SaveFileService {
 
-    private final MediaRepository mediaRepository;
+    private final FileRepository fileRepository;
     private final GetPostsService getPostsService;
 
     @Value("${file.dir}")
@@ -34,7 +34,7 @@ public class SaveFileService {
         for (MultipartFile v : media) {
             String fileName = v.getResource().getFilename();
 
-            result[idx] = mediaRepository.save(
+            result[idx] = fileRepository.save(
                     Media.builder()
                         .file(getPostsService.findPost(postsId))
                         .originalName(fileName)
