@@ -16,7 +16,7 @@ public class Media {
 
     @JoinColumn(name = "posts_id")
     @ManyToOne
-    private Posts file;
+    private Posts posts;
 
     @Column(nullable = false)
     private String originalName;
@@ -28,8 +28,8 @@ public class Media {
     private Long size;
 
     @Builder
-    public Media(Posts file, String originalName, String changedName, Long size) {
-        this.file = file;
+    public Media(Posts posts, String originalName, String changedName, Long size) {
+        this.posts = posts;
         this.originalName = originalName;
         this.changedName = changedName;
         this.size = size;

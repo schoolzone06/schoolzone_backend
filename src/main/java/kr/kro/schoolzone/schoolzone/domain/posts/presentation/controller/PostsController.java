@@ -4,6 +4,7 @@ import kr.kro.schoolzone.schoolzone.domain.posts.domain.Posts;
 import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.request.NewPostsRequest;
 import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.request.UpdatePostsRequest;
 import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.response.GetPostsResponse;
+import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.response.NewPostsResponse;
 import kr.kro.schoolzone.schoolzone.domain.posts.service.DeletePostsService;
 import kr.kro.schoolzone.schoolzone.domain.posts.service.GetPostsService;
 import kr.kro.schoolzone.schoolzone.domain.posts.service.NewPostsService;
@@ -11,7 +12,9 @@ import kr.kro.schoolzone.schoolzone.domain.posts.service.UpdatePostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -35,8 +38,9 @@ public class PostsController {
     }
 
     @PostMapping
-    public ResponseEntity<Posts> newPosts(@RequestBody NewPostsRequest request) {
-        return ResponseEntity.ok(newPostsService.execute(request));
+    public ResponseEntity<NewPostsResponse> newPosts(@RequestPart(value = "dto") NewPostsRequest request,
+                                                     @RequestPart(value = "media")MultipartFile[] media) throws IOException {
+        return ResponseEntity.ok(newPostsService.execute(request, media));
     }
 
     @PutMapping("/{id}")

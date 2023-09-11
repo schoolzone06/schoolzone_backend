@@ -1,6 +1,7 @@
 package kr.kro.schoolzone.schoolzone.domain.posts.service;
 
 import kr.kro.schoolzone.schoolzone.domain.posts.domain.Media;
+import kr.kro.schoolzone.schoolzone.domain.posts.presentation.dto.response.NewMediaResponse;
 import kr.kro.schoolzone.schoolzone.domain.posts.repository.MediaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,11 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class SaveFileService {
+public class SaveMediaService {
 
     private final MediaRepository mediaRepository;
     private final GetPostsService getPostsService;
@@ -23,11 +25,11 @@ public class SaveFileService {
     private String dir;
 
     @Transactional
-    public Media[] execute(MultipartFile[] media, Long postsId) throws IOException {
+    public NewMediaResponse[] execute(MultipartFile[] media, Long postsId) throws IOException {
         return saveFileData(media, postsId);
     }
 
-    private Media[] saveFileData(MultipartFile[] media, Long postsId) throws IOException {
+    private NewMediaResponse[] saveFileData(MultipartFile[] media, Long postsId) throws IOException {
         Media[] result = new Media[media.length];
         int idx = 0;
 
@@ -36,7 +38,7 @@ public class SaveFileService {
 
             result[idx] = mediaRepository.save(
                     Media.builder()
-                        .file(getPostsService.findPost(postsId))
+                        .posts(getPostsService.findPost(postsId))
                         .originalName(fileName)
                         .changedName(UUID.randomUUID().toString() + "_" + fileName)
                         .size(v.getSize())
@@ -51,6 +53,8 @@ public class SaveFileService {
             v.transferTo(savedFile);
         }
 
-        return result;
+        return Arrays.stream(result)
+                .map(NewMediaResponse::new)
+                .toArray(NewMediaResponse[]::new);
     }
 }
